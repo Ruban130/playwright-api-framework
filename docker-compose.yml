@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  api-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: playwright-api-tests
+    environment:
+      - API_BASE_URL=https://jsonplaceholder.typicode.com
+      - LOG_LEVEL=info
+      - CI=true
+    volumes:
+      - ./results:/app/results
+      - ./test-results:/app/test-results
+    networks:
+      - test-network
+
+networks:
+  test-network:
+    driver: bridge
